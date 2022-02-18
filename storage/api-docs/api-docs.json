@@ -1,0 +1,173 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "My First API",
+        "version": "0.1"
+    },
+    "paths": {
+        "/api/building": {
+            "get": {
+                "tags": [
+                    "building"
+                ],
+                "summary": "Get all buildings",
+                "description": "Get all buildings",
+                "operationId": "3414f12e1d87ae6869b3c8173181fc3d",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "building"
+                ],
+                "summary": "Adds a new building",
+                "description": "Adds a new building",
+                "operationId": "81585b0eb585c93578fd2c9806339bb6",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer"
+                                    },
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "location": {
+                                        "type": "string"
+                                    },
+                                    "price": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "id": 1488,
+                                    "name": "Penthouse",
+                                    "location": "Kyiv",
+                                    "price": 22222
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/building/{id}": {
+            "get": {
+                "tags": [
+                    "building"
+                ],
+                "summary": "Get single building by ID",
+                "description": "Get single building by ID",
+                "operationId": "954726f8d6bc5842c83d324fadba43b2",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Parameter with mutliple examples",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "An int value.",
+                                "value": "1"
+                            },
+                            "uuid": {
+                                "summary": "An UUID value.",
+                                "value": "0006faf6-7a61-426c-9034-579f2cfcfa83"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "building"
+                ],
+                "summary": "update building",
+                "description": "update building",
+                "operationId": "666c6b0d6d95f3f6e3baa86f4bb02605",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Parameter with mutliple examples",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "An int value.",
+                                "value": "1"
+                            },
+                            "uuid": {
+                                "summary": "An UUID value.",
+                                "value": "0006faf6-7a61-426c-9034-579f2cfcfa83"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "building"
+                ],
+                "summary": "delete building",
+                "description": "delete building",
+                "operationId": "64e633fb1de4247f7337f1595706639b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Parameter with mutliple examples",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "An int value.",
+                                "value": "1"
+                            },
+                            "uuid": {
+                                "summary": "An UUID value.",
+                                "value": "0006faf6-7a61-426c-9034-579f2cfcfa83"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Success"
+                    }
+                }
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}
