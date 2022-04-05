@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('buildings');
 });
 
 Auth::routes();
@@ -23,8 +23,15 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/buildings', function () {
     return view('buildings');
-});
+})->name('buildings');
 
-Route::get('/todo', function () {
-    return view('todo');
-});
+Route::get('/buildings-create', function () {
+    return view('building-create');
+})->name('building-create');
+
+Route::get('/building/{id}', function () {
+    return view('edit-building');
+})->name('building-edit');
+
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

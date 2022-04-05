@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Building;
+use File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 
 class BuildingController extends Controller
@@ -22,7 +24,7 @@ class BuildingController extends Controller
      */
     public function index()
     {
-        return Building::all();
+        return Building::orderByDesc('created_at')->get();
     }
 
     /**
@@ -63,6 +65,19 @@ class BuildingController extends Controller
      */
     public function store(Request $request)
     {
+//        $id = Building::max('id');
+//
+//
+//            $from = public_path('tmp/uploads/'.$request->media);
+//            $to = public_path('post_images/'.$request->media);
+//
+//            File::move($from, $to);
+//            DB::table('media')->insert(
+//                ['building_id' => $id+1, 'name' => $request->media]
+//            );
+        $file = $request->image;
+        $name = uniqid() . '_' . trim($file);
+        $file->move('images', $name);
         return Building::create($request->all());
     }
     /**
