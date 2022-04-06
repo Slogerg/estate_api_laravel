@@ -21,7 +21,7 @@
 
                         <button class="btn btn-success" @click="redirectToEdit(building.id)">Edit</button>
                         <button class="btn btn-danger" @click="deleteProduct(building.id)">Delete</button>
-                        <button class="btn btn-primary" @click="deleteProduct(building.id)">View</button>
+                        <button class="btn btn-primary" @click="redirectToView(building.id)">View</button>
                     </div>
                 </td>
             </tr>
@@ -76,6 +76,10 @@ export default {
 
         redirectToEdit(id){
             window.location.href = 'http://127.0.0.1:8001/building/'+id;
+        },
+
+        redirectToView(id){
+            window.location.href = 'http://127.0.0.1:8001/building-view/'+id;
         }
     }
 };

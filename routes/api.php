@@ -29,6 +29,8 @@ Route::get('categories', [CategoryController::class,'index']);
 Route::post('/upload', [ImageController::class, 'store'])->name('upload');
 Route::get('/media/{building}', [ImageController::class, 'getImages'])->name('building.images');
 
+Route::get('category/{id}', [CategoryController::class,'getCategoryByBuilding']);
+
 //Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //    return $request->user();
 //});

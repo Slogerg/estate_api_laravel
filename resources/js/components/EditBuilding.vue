@@ -9,7 +9,11 @@ padding: 10px;">
         <div class="row">
             <div class="col-md-6">
                 <form @submit.prevent="editProduct">
-
+                    <input type="file" id ='file' accept="image/*" class="form-control-file" style="display:none;"
+                           v-on:change="onChange" >
+                    <label id="img" for="file">Click to select other photo</label>
+                    <br>
+<!--                    <a  :src=+"building.image_path" class = 'btn btn-primary'>Click to review</a>-->
                     <div class="form-group">
                         <label>Title</label>
                         <input type="text" class="form-control" v-model="building.title">
@@ -67,18 +71,37 @@ export default {
             .then(response => (this.building = response.data));
     },
     methods: {
-        editProduct() {
+        onChange(e) {
+            this.file = e.target.files[0];
+        },
 
-            let data = JSON.stringify({
-                title: this.building.title,
-                location: this.building.location,
-                price: this.building.price,
-                description: this.building.description,
-                category_id: this.building.category_id,
-            });
+        editProduct(e) {
+            e.preventDefault();
+            let existingObj = this;
+            // const config = {
+            //     headers: {
+            //         'content-type': 'multipart/form-data'
+            //     }
+            // }
+
+            let data = new FormData();
+            data.append('_method', 'PUT')
+            data.append('file', this.file);
+            data.append('title',this.building.title);
+            data.append('location',this.building.location);
+            data.append('price',this.building.price);
+            data.append('description',this.building.description);
+            data.append('category_id',this.building.category_id);
+            // let data = JSON.stringify({
+            //     title: this.building.title,
+            //     location: this.building.location,
+            //     price: this.building.price,
+            //     description: this.building.description,
+            //     category_id: this.building.category_id,
+            // });
             console.log(data);
             axios
-                .put('http://127.0.0.1:8001/api/building/'+this.id,data,{headers:{"Content-Type" : "application/json"}})
+                .post('http://127.0.0.1:8001/api/building/'+this.id,data)
                 .then(response => (
                     window.location.href = 'http://127.0.0.1:8001/buildings'
                 ))

@@ -65,20 +65,23 @@ class BuildingController extends Controller
      */
     public function store(Request $request)
     {
-//        $id = Building::max('id');
-//
-//
-//            $from = public_path('tmp/uploads/'.$request->media);
-//            $to = public_path('post_images/'.$request->media);
-//
-//            File::move($from, $to);
-//            DB::table('media')->insert(
-//                ['building_id' => $id+1, 'name' => $request->media]
-//            );
-        $file = $request->image;
-        $name = uniqid() . '_' . trim($file);
-        $file->move('images', $name);
-        return Building::create($request->all());
+//        $request->validate([
+//            'file' => 'required|mimes:jpg,jpeg,png,csv,txt,xlx,xls,pdf|max:2048'
+//        ]);
+        if($request->file()) {
+
+            $file_name = time() . '_' . $request->file->getClientOriginalName();
+            $file_path = $request->file('file')->storeAs('uploads', $file_name, 'public');
+
+//            $request->image = time() . '_' . $request->file->getClientOriginalName();
+//            $request->image_path = '/storage/' . $file_path;
+//            $request->request->add(['image', time() . '_' . $request->file->getClientOriginalName()]);
+//            $request->request->add(['image_path', '/storage/' . $file_path]);
+           $request->merge(['image' => time() . '_' . $request->file->getClientOriginalName(),
+                'image_path' => '/storage/' . $file_path]);
+        }
+//dd($request->all());
+        return Building::create($request->except(['file']));
     }
     /**
      * @OA\Get (
@@ -127,6 +130,19 @@ class BuildingController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        if($request->file()) {
+            $file_name = time() . '_' . $request->file->getClientOriginalName();
+            $file_path = $request->file('file')->storeAs('uploads', $file_name, 'public');
+
+//            $request->image = time() . '_' . $request->file->getClientOriginalName();
+//            $request->image_path = '/storage/' . $file_path;
+//            $request->request->add(['image', time() . '_' . $request->file->getClientOriginalName()]);
+//            $request->request->add(['image_path', '/storage/' . $file_path]);
+            $request->merge(['image' => time() . '_' . $request->file->getClientOriginalName(),
+                'image_path' => '/storage/' . $file_path]);
+        }
+
         $building = Building::findOrFail($id);
         $building->update($request->all());
 

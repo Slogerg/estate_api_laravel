@@ -33,5 +33,9 @@ Route::get('/building/{id}', function () {
     return view('edit-building');
 })->name('building-edit');
 
+Route::get('/building-view/{id}', function () {
+    return view('view-building');
+})->name('building-view');
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

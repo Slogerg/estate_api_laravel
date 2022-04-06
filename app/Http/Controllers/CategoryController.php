@@ -83,4 +83,10 @@ class CategoryController extends Controller
     {
         //
     }
+    public function getCategoryByBuilding($id)
+    {
+        $id_category = Building::where('id',$id)->value('category_id');
+//        dd($id_category);
+        return Category::find($id_category);
+    }
 }

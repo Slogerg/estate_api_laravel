@@ -10,7 +10,7 @@ padding: 10px;">
             <div class="col-md-6">
                 <form @submit.prevent="addProduct">
                     <input type="file" accept="image/*" class="form-control-file"
-                           @change="updatePhoto($event.target.name, $event.target.files)">
+                           v-on:change="onChange">
                     <div class="form-group">
                         <label>Title</label>
                         <input type="text" class="form-control" v-model="building.title">
@@ -63,27 +63,28 @@ export default {
             .then(response => (this.categories = response.data));
     },
     methods: {
-        updatePhoto (files) {
-            if (!files.length) return;
-
-            // Store the file data
-            this.photo = {
-                name: files[0].name,
-                data: files[0]
-            };
+        onChange(e) {
+            this.file = e.target.files[0];
         },
-        addProduct() {
-            let data = JSON.stringify({
-                title: this.building.title,
-                location: this.building.location,
-                image: this.building.image,
-                price: this.building.price,
-                description: this.building.description,
-                category_id: this.building.category_id,
-            });
-console.log(data);
+        addProduct(e) {
+            e.preventDefault();
+            let existingObj = this;
+
+            const config = {
+                headers: {
+                    'content-type': 'multipart/form-data'
+                }
+            }
+            let data = new FormData();
+            data.append('file', this.file);
+            data.append('title',this.building.title);
+            data.append('location',this.building.location);
+            data.append('price',this.building.price);
+            data.append('description',this.building.description);
+            data.append('category_id',this.building.category_id);
+
             axios
-                .post('http://127.0.0.1:8001/api/building',data,{headers:{"Content-Type" : "application/json"}})
+                .post('http://127.0.0.1:8001/api/building',data,config)
                 .then(response => (
                     window.location.href = 'http://127.0.0.1:8001/buildings'
             ))

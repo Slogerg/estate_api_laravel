@@ -14,6 +14,8 @@ class Building extends Model
         'price',
         'category_id',
         'description',
+        'image',
+        'image_path'
     ];
 
     public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo

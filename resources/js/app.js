@@ -26,6 +26,7 @@ app.component('update-media' , UpdateMedia);
 app.component('building', require('./components/Building.vue').default);
 app.component('create-building', require('./components/CreateBuilding.vue').default);
 app.component('edit-building', require('./components/EditBuilding.vue').default);
+app.component('view-building', require('./components/SingleBuilding.vue').default);
 app.mount("#app")
 /**
  * The following block of code may be used to automatically register your
